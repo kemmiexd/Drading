@@ -1,10 +1,11 @@
 import React from 'react';
+import { Dimensions } from 'react-native'
 import { createStackNavigator, createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
 import MDIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import theme from './constants/theme';
 
-import Homepage from './screens/Homepage';
+import Homepage from './screens/Home/Homepage';
 import PostManager from './screens/PostManager';
 import SearchScreen from './screens/SearchScreen';
 import Account from './screens/Account';
@@ -122,14 +123,20 @@ const AppNavigator = createMaterialTopTabNavigator(
         backgroundColor: '#fff',
         padding: 0,
         height: 50,
-        margin: 10,
+        margin: 0,
         borderRadius: 25,
         borderWidth: 1,
         borderColor: '#f4f4f4',
         shadowColor: 'rgba(0, 0, 0, 0.15)',
         shadowOffset: { width: 0, height: 0 },
         shadowOpacity: .2,
-        elevation: 2
+        shadowRadius: 3,
+        elevation: 1,
+        overflow: 'hidden',
+        position: 'absolute',
+        bottom: 10,
+        width: Dimensions.get('window').width - 20,
+        left: 10,
       },
       labelStyle: {
         textAlign: "center",
