@@ -1,20 +1,28 @@
 import React from 'react';
-import { StyleSheet, FlatList, ImageBackground, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, FlatList, ImageBackground, Dimensions, ScrollView, AsyncStorage } from 'react-native';
 import { Block, Text, Button } from '../../constants';
 import theme from '../../constants/theme';
-import Swiper from 'react-native-swiper'
-import Icon from "react-native-vector-icons/Ionicons";
 
+import { FlashNews } from '../../components/Home';
 import Header from '../../components/Header';
 
 const { width } = Dimensions.get('window');
  
 const categories = [
-  { id: 1, url: require('../../assets/estate.jpg'), name: 'Bất động sản' },
-  { id: 2, url: require('../../assets/cleaning-machine.jpg'), name: 'Máy vệ sinh' },
-  { id: 3, url: require('../../assets/cleaning-service.jpg'), name: 'Dịch vụ vệ sinh' },
-  { id: 4, url: require('../../assets/technology-item.jpg'), name: 'Điện máy' },
-  { id: 5, url: require('../../assets/house-ware.jpg'), name: 'Thiết bị gia dụng' },
+  { id: 1, url: require('../../assets/images/estate.jpg'), name: 'Bất động sản' },
+  { id: 2, url: require('../../assets/images/cleaning-machine.jpg'), name: 'Máy vệ sinh' },
+  { id: 3, url: require('../../assets/images/cleaning-service.jpg'), name: 'Dịch vụ vệ sinh' },
+  { id: 4, url: require('../../assets/images/technology-item.jpg'), name: 'Điện máy' },
+  { id: 5, url: require('../../assets/images/house-ware.jpg'), name: 'Thiết bị gia dụng' },
+];
+
+const news = [
+  { id: 1, title: 'Cho thuê nhà nguyên căn HXH đường Phạm Văn Chiêu gần ngã 3 Cây Trâm,P1', location: 'TP. Hồ Chí Minh', time: '5 phút trước' },
+  { id: 2, title: 'Cho thuê nhà nguyên căn HXH đường Phạu gần ngã 3 Cây Trâm,P1', location: 'Hà Nội', time: '15 phút trước' },
+  { id: 3, title: 'Cho thuê nhà nguyên cường Phạm Văn Chiêu gần ngã 3 Cây Trâm,P1', location: 'Đài Loan', time: '25 phút trước' },
+  { id: 4, title: 'Cho thuê nhà nguyên căn HXH đường Phạm Văn Chiêu gần ngã 3 Cây Trâm,P1', location: 'TP. Hồ Chí Minh', time: '5 phút trước' },
+  { id: 52, title: 'Cho thuê nhà nguyên căn HXH đường Phạu gần ngã 3 Cây Trâm,P1', location: 'Hà Nội', time: '15 phút trước' },
+  { id: 63, title: 'Cho thuê nhà nguyên cường Phạm Văn Chiêu gần ngã 3 Cây Trâm,P1', location: 'Đài Loan', time: '25 phút trước' },
 ]
 
 export default class Homepage extends React.Component {
@@ -33,40 +41,37 @@ export default class Homepage extends React.Component {
     super(props);
 
     this.state = {
-      categories: categories
+      categories: categories,
+      news: news
     }
   }
+
+  logout = async () => {
+    try {
+      await AsyncStorage.removeItem("displayName");
+      await AsyncStorage.removeItem("photoURL");
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   render() {
     return (
       <Block style={{ flex: 1, backgroundColor: '#f9f9f9' }}>
         <ScrollView>
-          <Block style={styles.flashNews}>
-            <Block style={styles.title}>
-              <Icon size={16} color="#fff" name="ios-flash" />
-              <Text style={{ fontSize: 16, color: '#fff', marginLeft: 16, }}>
-                Tin ưu tiên
-              </Text>
-            </Block>
-            <Swiper style={styles.swiper} showsButtons={true}>
-              <Block style={styles.swiperItem}>
-                <Text>Cho thuê nhà nguyên căn HXH đường Phạm Văn Chiêu gần ngã 3 Cây Trâm,P1</Text>
-              </Block>
-              <Block style={styles.swiperItem}>
-                <Text>Cho thuê nhà nguyên căn HXH đường Phạm Văn Chiêu gần ngã 3 Cây Trâm,P1</Text>
-              </Block>
-              <Block style={styles.swiperItem}>
-                <Text>Cho thuê nhà nguyên căn HXH đường Phạm Văn Chiêu gần ngã 3 Cây Trâm,P1</Text>
-              </Block>
-            </Swiper>
-          </Block>
+          <Button onPress={() => this.logout()}>
+            <Text>Logout</Text>
+          </Button>
+
+          <FlashNews news={this.state.news} />
           <FlatList 
             data={categories}
             renderItem={({ item }) => (
               <Button style={styles.box}>
                 <ImageBackground source={item.url} style={styles.background} >
                   <Block style={styles.overlay}></Block>
-                  <Text color="#fff" style={styles.text}>
+                  <Text bold color="#fff" style={styles.text}>
                     { item.name }
                   </Text>
                 </ImageBackground>
@@ -104,27 +109,6 @@ const styles = StyleSheet.create({
     height: '100%' 
   },
   text: {
-    fontWeight: '600',
     fontSize: 20,
-  },
-  swiperItem: {
-    flex: 1,
-  },
-  flashNews: {
-    flex: 1,
-    height: 160,
-    margin: theme.sizes.base,
-    marginBottom: theme.sizes.base / 2,
-    elevation: 1,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    overflow: 'hidden'
-  },
-  title: {
-    flex: .5,
-    backgroundColor: theme.colors.main,
-    paddingHorizontal: theme.sizes.base,
-    alignItems: 'center',
-    flexDirection: 'row',
   }
 })

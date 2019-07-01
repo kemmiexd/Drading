@@ -1,12 +1,12 @@
 const colors = {
-  main: "#F79C1D",
+  main: "#02B875",
   blue: "#1976D2",
   red: "#FA424A",
   purple: "#6C5CE7",
   black: "#323643",
   white: "#FFFFFF",
-  gray: "#9DA3B4",
-  gray2: "#C5CCD6",
+  gray: "#555",
+  gray2: "#999",
 };
 
 const sizes = {

@@ -1,28 +1,75 @@
 import React from "react";
-import { StyleSheet, Image, Dimensions, ScrollView } from "react-native";
+import { StyleSheet, Image, Dimensions, AsyncStorage } from "react-native";
 import { Block, Text, Button } from '../constants';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import theme from '../constants/theme';
+import * as Facebook from 'expo-facebook';
+import * as firebase from 'firebase';
+
+import Header from '../components/Header';
+import callApi from './../util/callApi';
 
 const { width } = Dimensions.get('window');
 
+const firebaseConfig = {
+  apiKey: "AIzaSyBqsSJyljrNqkFF2c0f_2He_gKc6cCdtvY",
+  authDomain: "drading-apps.firebaseapp.com",
+  databaseURL: "https://drading-apps.firebaseio.com",
+  projectId: "drading-apps",
+  storageBucket: "",
+};
+firebase.initializeApp(firebaseConfig);
+
 export default class Login extends React.Component {
-  static navigationOptions = () => {
+  static navigationOptions = ({ navigation }) => {
     return {
-      title: "Đăng nhập",
+      headerTitle: (
+        <Header navigation={navigation} />
+      ),
       headerStyle: { backgroundColor: "#fff", height: 60, },
       headerTintColor: "gray",
       headerBackTitleStyle: { display: "none" }
     };
   };
+  
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user !== null) {
+        const { displayName, photoURL, uid } = user;
+        try {
+          AsyncStorage.setItem('displayName', displayName);
+          AsyncStorage.setItem('photoURL', photoURL);
+          AsyncStorage.setItem('uid', uid);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
+  }
+
+  async loginWithFacebook() {
+    const { type, token } = await Facebook.logInWithReadPermissionsAsync(
+      '2360111344066790', 
+      { permissions: ['public_profile'] }
+    )
+
+    if (type == 'success') {
+      const credential = firebase.auth.FacebookAuthProvider.credential(token);
+      this.props.navigation.navigate("Homepage");
+      firebase.auth().signInWithCredential(credential).catch((error) => {
+        console.log(error)
+      })
+    }
+  }
 
   render() {
     return (
       <Block middle>
-        <Image source={require('../assets/login-2.png')} style={styles.img} />
+        <Image source={require('../assets/images/login.png')} style={styles.img} />
         <Button 
           center middle 
           style={[styles.btn, styles.facebook]}
+          onPress={() => this.loginWithFacebook()}
         >
           <Icon 
             size={24} 
