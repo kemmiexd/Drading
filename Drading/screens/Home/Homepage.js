@@ -59,25 +59,12 @@ export default class Homepage extends React.Component {
   //   })
   // }
 
-  logout = async () => {
-    try {
-      await AsyncStorage.removeItem("displayName");
-      await AsyncStorage.removeItem("photoURL");
-      
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   render() {
     return (
       <Block style={{ flex: 1, backgroundColor: '#f9f9f9' }}>
         <ScrollView>
-          <Button onPress={() => this.logout()}>
-            <Text>Logout</Text>
-          </Button>
-
           <FlashNews news={this.state.news} />
+
           <FlatList 
             data={this.state.categories}
             renderItem={({ item }) => (

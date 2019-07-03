@@ -2,7 +2,7 @@ import React from 'react';
 import { Dimensions } from 'react-native'
 import { createStackNavigator, createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
 import MDIcon from "react-native-vector-icons/MaterialCommunityIcons";
-
+import AntdIcon from "react-native-vector-icons/AntDesign";
 import theme from './constants/theme';
 
 import Homepage from './screens/Home/Homepage';
@@ -66,8 +66,8 @@ SearchScreenStack.navigationOptions = {
   tabBarLabel: 'Tìm kiếm',
   tabBarIcon: ({ focused }) => {
     return (
-      <MDIcon
-        name="magnify"
+      <AntdIcon
+        name="search1"
         size={focused ? 0 : 24}
         color="gray"
         style={{ 
@@ -89,8 +89,8 @@ AccountStack.navigationOptions = {
   tabBarLabel: 'Tài khoản',
   tabBarIcon: ({ focused }) => {
     return (
-      <MDIcon
-        name="account-tie"
+      <AntdIcon
+        name="user"
         size={focused ? 0 : 24}
         color="gray"
         style={{ 

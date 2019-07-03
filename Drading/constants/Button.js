@@ -19,6 +19,7 @@ class Button extends Component {
       locations,
       shadow,
       children,
+      center,
       ...props
     } = this.props;
 
@@ -30,6 +31,7 @@ class Button extends Component {
       style,
       row && styles.row,
       middle && styles.middle,
+      center && styles.center
     ];
 
     if (gradient) {
@@ -77,8 +79,8 @@ Button.defaultProps = {
 export default Button;
 
 const styles = StyleSheet.create({
-  button: {
-    justifyContent: 'center',
+  center: {
+    justifyContent: 'center'
   },
   row: {
     flexDirection: 'row',
