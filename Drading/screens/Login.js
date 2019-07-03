@@ -20,6 +20,12 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
+convertFormatDate = (dateString) => {
+  var date = new Date(dateString);
+  month = ("0" + (date.getMonth() + 1)).slice(-2);
+  return `Tháng ${[month, date.getFullYear()].join("/")}`;
+}
+
 export default class Login extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -35,11 +41,16 @@ export default class Login extends React.Component {
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user !== null) {
-        const { displayName, photoURL, uid } = user;
+        const { displayName, photoURL, uid, metadata } = user;
         try {
+          // date.toLocaleDateString();
+          const dateOfJoin = convertFormatDate(metadata.creationTime)
+
           AsyncStorage.setItem('displayName', displayName);
           AsyncStorage.setItem('photoURL', photoURL);
           AsyncStorage.setItem('uid', uid);
+          AsyncStorage.setItem('dateOfJoin', dateOfJoin);
+
         } catch (error) {
           console.log(error);
         }

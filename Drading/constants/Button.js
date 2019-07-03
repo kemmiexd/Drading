@@ -78,10 +78,7 @@ export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: theme.sizes.radius,
-    height: theme.sizes.base * 3,
     justifyContent: 'center',
-    marginVertical: theme.sizes.padding / 3,
   },
   row: {
     flexDirection: 'row',

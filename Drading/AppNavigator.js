@@ -8,7 +8,7 @@ import theme from './constants/theme';
 import Homepage from './screens/Home/Homepage';
 import PostManager from './screens/PostManager';
 import SearchScreen from './screens/SearchScreen';
-import Account from './screens/Account';
+import Account from './screens/Account/Account';
 
 import Login from './screens/Login';
 
@@ -112,7 +112,7 @@ const AppNavigator = createMaterialTopTabNavigator(
     AccountStack,
   },
   {
-    initialRouteName: "HomepageStack",
+    initialRouteName: "AccountStack",
     tabBarPosition: "bottom",
     swipeEnabled: true,
     animationEnabled: true,

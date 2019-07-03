@@ -1,7 +1,4 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/drading', {useNewUrlParser: true});
-mongoose.set('useCreateIndex', true);
-
+import mongoose from 'mongoose';
 
 const CategoriesSchema = new mongoose.Schema({
   name: {
@@ -13,6 +10,5 @@ const CategoriesSchema = new mongoose.Schema({
     required: true
   }
 });
-const Categories = mongoose.model('Categories', CategoriesSchema);
 
-module.exports = Categories;
+export default CategoriesSchema;

@@ -1,15 +1,15 @@
 import express from 'express';
 
-import { Categories } from '../models';
+import { SubCategories } from '../models';
 
 const router = express.Router();
 
-router.post('/categories', (req, res) => {
+router.post('/sub-categories', (req, res) => {
   if(!req.body) {
     return res.status(400).send('Request body is missing')
   }
 
-  let model = new Categories(req.body)
+  let model = new SubCategories(req.body)
   model.save()
     .then(doc => {
       if(!doc || doc.length === 0) {
@@ -23,9 +23,9 @@ router.post('/categories', (req, res) => {
     })
 })
 
-router.get('/categories', (req, res) => {
-  Categories.find().then(function(categories) {
-    res.json(categories); 
+router.get('/sub-categories', (req, res) => {
+  SubCategories.find().then(function(subCategories) {
+    res.json(subCategories); 
   });
 })
 

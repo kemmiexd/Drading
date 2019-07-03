@@ -5,15 +5,16 @@ import theme from '../../constants/theme';
 
 import { FlashNews } from '../../components/Home';
 import Header from '../../components/Header';
+import callApi from '../../util/callApi';
 
 const { width } = Dimensions.get('window');
  
 const categories = [
-  { id: 1, url: require('../../assets/images/estate.jpg'), name: 'Bất động sản' },
-  { id: 2, url: require('../../assets/images/cleaning-machine.jpg'), name: 'Máy vệ sinh' },
-  { id: 3, url: require('../../assets/images/cleaning-service.jpg'), name: 'Dịch vụ vệ sinh' },
-  { id: 4, url: require('../../assets/images/technology-item.jpg'), name: 'Điện máy' },
-  { id: 5, url: require('../../assets/images/house-ware.jpg'), name: 'Thiết bị gia dụng' },
+  { _id: 1, url: require('../../assets/images/estate.jpg'), name: 'Bất động sản' },
+  { _id: 2, url: require('../../assets/images/cleaning-machine.jpg'), name: 'Máy vệ sinh' },
+  { _id: 3, url: require('../../assets/images/cleaning-service.jpg'), name: 'Dịch vụ vệ sinh' },
+  { _id: 4, url: require('../../assets/images/technology-item.jpg'), name: 'Điện máy' },
+  { _id: 5, url: require('../../assets/images/house-ware.jpg'), name: 'Thiết bị gia dụng' },
 ];
 
 const news = [
@@ -46,6 +47,18 @@ export default class Homepage extends React.Component {
     }
   }
 
+  // componentDidMount() {
+  //   this.fetchCategores();
+  // }
+  
+  // fetchCategores = () => {
+  //   callApi('categories', 'get', null).then(res => {
+  //     this.setState({ categories: res.data });
+
+  //     console.log(res.data);
+  //   })
+  // }
+
   logout = async () => {
     try {
       await AsyncStorage.removeItem("displayName");
@@ -66,10 +79,10 @@ export default class Homepage extends React.Component {
 
           <FlashNews news={this.state.news} />
           <FlatList 
-            data={categories}
+            data={this.state.categories}
             renderItem={({ item }) => (
               <Button style={styles.box}>
-                <ImageBackground source={item.url} style={styles.background} >
+                <ImageBackground source={{ uri: item.image }} style={styles.background} >
                   <Block style={styles.overlay}></Block>
                   <Text bold color="#fff" style={styles.text}>
                     { item.name }
@@ -77,7 +90,7 @@ export default class Homepage extends React.Component {
                 </ImageBackground>
               </Button>
             )}
-            keyExtractor={item => `${item.id}`}
+            keyExtractor={item => `${item._id}`}
           />
           <Block style={{ height: 60, }} />
         </ScrollView>

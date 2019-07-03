@@ -1,14 +1,15 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
 
-const ProductModel = require('../models/product.model');
+import { Product } from '../models';
+
+const router = express.Router();
 
 router.post('/product', (req, res) => {
   if(!req.body) {
     return res.status(400).send('Request body is missing')
   }
 
-  let model = new ProductModel(req.body)
+  let model = new Product(req.body)
   model.save()
     .then(doc => {
       if(!doc || doc.length === 0) {
@@ -23,9 +24,9 @@ router.post('/product', (req, res) => {
 })
 
 router.get('/product', (req, res) => {
-  ProductModel.find().then(function(product) {
+  Product.find().then(function(product) {
     res.json(product); 
   });
 })
 
-module.exports = router
+export default router;

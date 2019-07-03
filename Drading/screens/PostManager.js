@@ -7,7 +7,7 @@ export default class PostManager extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: (
-        <Header />
+        <Header navigation={navigation} />
       ),
       headerStyle: { backgroundColor: "#fff", height: 60 },
       headerTintColor: "gray",
