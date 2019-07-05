@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 180,
     margin: theme.sizes.base,
-    marginBottom: theme.sizes.base / 2,
+    marginBottom: theme.sizes.base / 3,
     elevation: 1,
     backgroundColor: '#fff',
     borderRadius: 5,

@@ -1,3 +1,9 @@
 import FlashNews from './FlashNews';
+import SortProduct from './SortProduct';
+import FilterProduct from './FilterProduct';
 
-export { FlashNews };
+export { 
+  FilterProduct, 
+  SortProduct, 
+  FlashNews 
+};

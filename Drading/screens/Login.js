@@ -9,6 +9,8 @@ import * as firebase from 'firebase';
 import Header from '../components/Header';
 import callApi from './../util/callApi';
 
+import axios from 'axios';
+
 const { width } = Dimensions.get('window');
 
 const firebaseConfig = {
@@ -29,9 +31,7 @@ convertFormatDate = (dateString) => {
 export default class Login extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      headerTitle: (
-        <Header navigation={navigation} />
-      ),
+      title: null,
       headerStyle: { backgroundColor: "#fff", height: 60, },
       headerTintColor: "gray",
       headerBackTitleStyle: { display: "none" }
@@ -39,18 +39,41 @@ export default class Login extends React.Component {
   };
   
   componentDidMount() {
+    // firebase.auth().onAuthStateChanged((user) => {
+    //   if (user !== null) {
+    //     const { displayName, photoURL, uid, metadata } = user;
+
+    //     try {
+    //       const dateOfJoin = convertFormatDate(metadata.creationTime);
+
+    //       callApi('users', 'POST', {
+    //         displayName, photoURL,  uid, dateOfJoin 
+    //       }).then(res => {
+    //         const { displayName, photoURL, uid, dateOfJoin } = res.data;
+
+    //         AsyncStorage.setItem('displayName', displayName);
+    //         AsyncStorage.setItem('photoURL', photoURL);
+    //         AsyncStorage.setItem('uid', uid);
+    //         AsyncStorage.setItem('dateOfJoin', dateOfJoin);
+    //       })
+
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   }
+    // });
+
     firebase.auth().onAuthStateChanged((user) => {
       if (user !== null) {
         const { displayName, photoURL, uid, metadata } = user;
+
         try {
-          // date.toLocaleDateString();
-          const dateOfJoin = convertFormatDate(metadata.creationTime)
+          const dateOfJoin = convertFormatDate(metadata.creationTime);
 
           AsyncStorage.setItem('displayName', displayName);
           AsyncStorage.setItem('photoURL', photoURL);
           AsyncStorage.setItem('uid', uid);
           AsyncStorage.setItem('dateOfJoin', dateOfJoin);
-
         } catch (error) {
           console.log(error);
         }
@@ -96,6 +119,7 @@ export default class Login extends React.Component {
         <Button 
           center middle 
           style={[styles.btn, styles.google]}
+          onPress={() => this.loginWithGoogle()}
         >
           <Icon 
             size={24} 

@@ -1,10 +1,7 @@
 import mongoose from 'mongoose';
 
 const UsersSchema = new mongoose.Schema({
-  uid: {
-    type: 'ObjectId',
-    unique,
-  },
+  uid: String,
   displayName: {
     type: String,
     required: true,
@@ -12,13 +9,10 @@ const UsersSchema = new mongoose.Schema({
   photoURL: String,
   email: String,
   phone: String,
-  password: {
-    type: String,
-    required: true
-  },
+  password: String,
   address: String,
   gender: String,
-  dateOfJoin: Date,
+  dateOfJoin: String,
   searchHistory: [String],
   postedNews: [{
     type: 'ObjectId',

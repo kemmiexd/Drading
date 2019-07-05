@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, Image, AsyncStorage } from 'react-native';
 import AntdIcon from "react-native-vector-icons/AntDesign";
 import { Block, Text, Button } from '../../constants';
 import theme from '../../constants/theme';
+import callApi from '../../util/callApi';
 
 import Header from '../../components/Header';
 
@@ -33,20 +34,22 @@ export default class Account extends React.Component {
   }
 
   fetchUser = async () => {
-    try {
-      const displayName = await AsyncStorage.getItem("displayName");
-      const photoURL = await AsyncStorage.getItem("photoURL");
-      const dateOfJoin = await AsyncStorage.getItem("dateOfJoin");
-      if (displayName !== null && photoURL !== null) {
-        this.setState({
-          displayName,
-          photoURL,
-          dateOfJoin
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    // callApi('users', 'GET', null).then(res => {
+    //   AsyncStorage.getItem("uid").then(uid => {
+    //     const dataFound = res.data.find(item => item.uid == uid)
+    //     this.setState({
+    //       displayName: dataFound.displayName,
+    //       photoURL: dataFound.photoURL,
+    //       dateOfJoin: dataFound.dateOfJoin
+    //     })
+    //   });
+    // })
+
+    const displayName = await AsyncStorage.getItem("displayName");
+    const photoURL = await AsyncStorage.getItem("photoURL");
+    const dateOfJoin = await AsyncStorage.getItem("dateOfJoin");
+    
+    this.setState({ displayName, photoURL, dateOfJoin })
   };
 
   logout = async () => {
@@ -109,21 +112,11 @@ export default class Account extends React.Component {
 
         <Button 
           row middle style={styles.button} 
-          onPress={() => navigation.navigate("ChangePassword")}
-        >
-          <AntdIcon 
-            name='key' size={16} color='#fff' 
-            style={[styles.icon, { backgroundColor: theme.colors.purple }]} />
-          <Text>Đổi mật khẩu</Text>
-        </Button>
-        
-        <Button 
-          row middle style={styles.button} 
           onPress={() => this.logout()}
         >
           <AntdIcon 
             name='logout' size={16} color='#fff' 
-            style={[styles.icon, { backgroundColor: theme.colors.orange }]} />
+            style={[styles.icon, { backgroundColor: theme.colors.purple }]} />
           <Text>Đăng xuất</Text>
         </Button>
       </ScrollView>

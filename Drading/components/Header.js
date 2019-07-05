@@ -3,6 +3,7 @@ import { StyleSheet, Image, AsyncStorage } from "react-native";
 import { Block, Text, Button } from "../constants";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
+import callApi from '../util/callApi';
 import theme from "../constants/theme";
 
 export default class Header extends React.Component {
@@ -20,18 +21,19 @@ export default class Header extends React.Component {
   }
 
   fetchUser = async () => {
-    try {
-      const displayName = await AsyncStorage.getItem("displayName");
-      const photoURL = await AsyncStorage.getItem("photoURL");
-      if (displayName !== null && photoURL !== null) {
-        this.setState({
-          displayName,
-          photoURL
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    // callApi('users', 'GET', null).then(res => {
+    //   AsyncStorage.getItem("uid").then(uid => {
+    //     const dataFound = res.data.find(item => item.uid == uid)
+    //     this.setState({
+    //       displayName: dataFound.displayName,
+    //       photoURL: dataFound.photoURL,
+    //     })
+    //   });
+    // });
+
+    const displayName = await AsyncStorage.getItem("displayName");
+    const photoURL = await AsyncStorage.getItem("photoURL");
+    this.setState({ displayName, photoURL })
   };
 
   render() {

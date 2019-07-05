@@ -5,7 +5,8 @@ import MDIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import AntdIcon from "react-native-vector-icons/AntDesign";
 import theme from './constants/theme';
 
-import Homepage from './screens/Home/Homepage';
+import { Homepage, Product, FilterScreen } from './screens/Home';
+
 import PostManager from './screens/PostManager';
 import SearchScreen from './screens/SearchScreen';
 import Account from './screens/Account/Account';
@@ -14,7 +15,9 @@ import Login from './screens/Login';
 
 const HomepageStack = createStackNavigator({
   Homepage,
-  Login
+  Login,
+  Product,
+  FilterScreen
 });
 HomepageStack.navigationOptions = {
   tabBarLabel: 'Trang chủ',
@@ -112,7 +115,7 @@ const AppNavigator = createMaterialTopTabNavigator(
     AccountStack,
   },
   {
-    initialRouteName: "AccountStack",
+    initialRouteName: "HomepageStack",
     tabBarPosition: "bottom",
     swipeEnabled: true,
     animationEnabled: true,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, FlatList, ImageBackground, Dimensions, ScrollView, AsyncStorage } from 'react-native';
+import { StyleSheet, FlatList, ImageBackground, Dimensions, ScrollView } from 'react-native';
 import { Block, Text, Button } from '../../constants';
 import theme from '../../constants/theme';
 
@@ -10,11 +10,11 @@ import callApi from '../../util/callApi';
 const { width } = Dimensions.get('window');
  
 const categories = [
-  { _id: 1, url: require('../../assets/images/estate.jpg'), name: 'Bất động sản' },
-  { _id: 2, url: require('../../assets/images/cleaning-machine.jpg'), name: 'Máy vệ sinh' },
-  { _id: 3, url: require('../../assets/images/cleaning-service.jpg'), name: 'Dịch vụ vệ sinh' },
-  { _id: 4, url: require('../../assets/images/technology-item.jpg'), name: 'Điện máy' },
-  { _id: 5, url: require('../../assets/images/house-ware.jpg'), name: 'Thiết bị gia dụng' },
+  { _id: 1, image: require('../../assets/images/estate.jpg'), name: 'Bất động sản' },
+  { _id: 2, image: require('../../assets/images/cleaning-machine.jpg'), name: 'Máy vệ sinh' },
+  { _id: 3, image: require('../../assets/images/cleaning-service.jpg'), name: 'Dịch vụ vệ sinh' },
+  { _id: 4, image: require('../../assets/images/technology-item.jpg'), name: 'Điện máy' },
+  { _id: 5, image: require('../../assets/images/house-ware.jpg'), name: 'Thiết bị gia dụng' },
 ];
 
 const news = [
@@ -60,6 +60,8 @@ export default class Homepage extends React.Component {
   // }
 
   render() {
+    const { navigation } = this.props;
+
     return (
       <Block style={{ flex: 1, backgroundColor: '#f9f9f9' }}>
         <ScrollView>
@@ -68,8 +70,14 @@ export default class Homepage extends React.Component {
           <FlatList 
             data={this.state.categories}
             renderItem={({ item }) => (
-              <Button style={styles.box}>
-                <ImageBackground source={{ uri: item.image }} style={styles.background} >
+              <Button 
+                style={styles.box}
+                onPress={() => navigation.navigate('Product', {
+                  categoryId: item.id,
+                  categoryName: item.name
+                })}
+              >
+                <ImageBackground source={item.image} style={styles.background} >
                   <Block style={styles.overlay}></Block>
                   <Text bold color="#fff" style={styles.text}>
                     { item.name }
@@ -79,8 +87,12 @@ export default class Homepage extends React.Component {
             )}
             keyExtractor={item => `${item._id}`}
           />
-          <Block style={{ height: 60, }} />
+          <Block style={{ height: 120, }} />
         </ScrollView>
+
+        <Button center middle style={styles.postNow}>
+          <Text white bold>ĐĂNG TIN NGAY</Text>
+        </Button>
       </Block>
     )
   }
@@ -91,6 +103,7 @@ const styles = StyleSheet.create({
     width: width - (theme.sizes.base * 2),
     height: width / 3,
     margin: theme.sizes.base,
+    marginBottom: theme.sizes.base / 3,
     borderRadius: 5,
     overflow: 'hidden',
   },
@@ -110,5 +123,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+  },
+  postNow: {
+    backgroundColor: theme.colors.main,
+    height: 40,
+    width: width / 2,
+    position: 'absolute',
+    bottom: 70,
+    left: '25%',
+    borderRadius: 20,
   }
 })
