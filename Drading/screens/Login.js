@@ -65,6 +65,7 @@ export default class Login extends React.Component {
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user !== null) {
+        console.log(user);
         const { displayName, photoURL, uid, metadata } = user;
 
         try {

@@ -1,9 +1,9 @@
 import FlashNews from './FlashNews';
 import SortProduct from './SortProduct';
-import FilterProduct from './FilterProduct';
+import ProductItem from './ProductItem';
 
 export { 
-  FilterProduct, 
   SortProduct, 
-  FlashNews 
+  FlashNews,
+  ProductItem
 };
