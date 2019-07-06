@@ -5,7 +5,7 @@ import MDIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import AntdIcon from "react-native-vector-icons/AntDesign";
 import theme from './constants/theme';
 
-import { Homepage, Product, FilterScreen } from './screens/Home';
+import { Homepage, Product, FilterScreen, ProductDetail } from './screens/Home';
 
 import PostManager from './screens/PostManager';
 import SearchScreen from './screens/SearchScreen';
@@ -17,7 +17,8 @@ const HomepageStack = createStackNavigator({
   Homepage,
   Login,
   Product,
-  FilterScreen
+  FilterScreen,
+  ProductDetail
 });
 HomepageStack.navigationOptions = {
   tabBarLabel: 'Trang chủ',

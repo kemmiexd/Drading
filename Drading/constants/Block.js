@@ -171,10 +171,10 @@ export const styles = StyleSheet.create({
   card: {
     borderRadius: theme.sizes.radius,
   },
-  center: {
+  middle: {
     alignItems: 'center',
   },
-  middle: {
+  center: {
     justifyContent: 'center',
   },
   left: {

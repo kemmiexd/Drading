@@ -8,10 +8,15 @@ const formatPrice = price => {
 }
 
 export default function FlashNews(props) {
-  const { product } = props;
+  const { product, navigation } = props;
   
   return (
-    <Button row style={styles.box}>
+    <Button 
+      row style={styles.box}
+      onPress={() => navigation.navigate('ProductDetail', {
+        product: product
+      })}
+    >
       <Image source={{ uri: product.images[0] }} style={styles.image} />
       <Block>
         <TextRN numberOfLines={2}>
