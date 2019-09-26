@@ -90,7 +90,10 @@ export default class Homepage extends React.Component {
           <Block style={{ height: 120, }} />
         </ScrollView>
 
-        <Button center middle style={styles.postNow}>
+        <Button 
+          center middle style={styles.postNow}
+          onPress={ () => navigation.navigate('NewPostScreen') }
+        >
           <Text white bold>ĐĂNG TIN NGAY</Text>
         </Button>
       </Block>
